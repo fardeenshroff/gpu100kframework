@@ -1,37 +1,40 @@
 # NVIDIA 100K GPU Cluster Configuration
-# Target: AI Workload Resiliency Engineering
+# AI Cluster Resiliency Framework (ACRF)
 
 cluster:
-  name: "NVIDIA-DGX-SuperPOD-100K"
+  name: "NVIDIA_H100_100K"
   total_gpus: 100000
-  nodes: 12500  # 8 GPUs per node
-  racks: 500    # 25 nodes per rack
+  nodes: 12500
+  gpus_per_node: 8
+  interconnect: "InfiniBand"
+  
+hardware:
+  gpu_model: "H100"
+  memory_per_gpu: "80GB"
+  compute_capability: "9.0"
+  nvlink_bandwidth: "900GB/s"
   
 monitoring:
-  gpu_monitoring_interval: 5      # seconds
-  node_monitoring_interval: 10    # seconds
-  cluster_monitoring_interval: 30 # seconds
-  metrics_retention: 7            # days
+  interval_seconds: 5
+  health_check_timeout: 30
+  prediction_window_hours: 48
+  metrics_retention_days: 30
   
 fault_tolerance:
-  enabled: true
-  prediction_window: 86400        # 24 hours in seconds
-  recovery_timeout: 300           # 5 minutes
-  checkpoint_interval: 300        # 5 minutes
+  checkpoint_interval: 300
+  max_recovery_time: 5
+  mttr_target: 300  # Mean Time To Recovery (seconds)
+  backup_strategies: ["local", "distributed", "cloud"]
   
 optimization:
-  algorithm: "pbqp_inspired"      # From research
-  rebalancing_threshold: 0.8      # 80% utilization
-  memory_optimization: true       # 12.5% improvement target
+  algorithm: "graph_pbqp"
+  speedup_target: 3.45
+  memory_optimization: true
+  checkpoint_overhead_reduction: 12.5
+  rebalancing_threshold: 0.15
   
-resiliency:
-  target_uptime: 99.95           # % uptime target
-  max_mttr: 300                  # seconds (5 minutes)
-  job_success_rate: 98.0         # % target
-
-# Research-based optimization parameters
-research_optimization:
-  graph_level_optimization: true
-  dynamic_programming: true
-  pbqp_approximation: true
-  layer_wise_analysis: true
+scheduling:
+  policy: "workload_aware"
+  priority_levels: 5
+  preemption_enabled: true
+  resource_reservation: true

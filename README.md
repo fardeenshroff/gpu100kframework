@@ -1,6 +1,6 @@
 # AI Cluster Resiliency Framework (ACRF)
 
-> **🎯 Targeting NVIDIA AI Workload Resiliency Engineering - "Driving Cluster Downtime Towards Zero"**
+> ** Targeting NVIDIA AI Workload Resiliency Engineering - "Driving Cluster Downtime Towards Zero"**
 
 ## Mission Statement
 

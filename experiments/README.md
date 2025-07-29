@@ -161,7 +161,7 @@ pip install numpy matplotlib  # Add as needed
 @article{shroff2024neocpu,
   title={Optimizing CNN Model Inference on CPUs},
   author={Shroff, Fardeen Fayyaz},
-  journal={IEEE Conference Proceedings},
+  Research paper
   year={2024}
 }
 
